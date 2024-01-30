@@ -1,1 +1,1 @@
-JTAppleCalendarEx 사용을 위한 예제 코드
+JTAppleCalendar 테스트를 위한 예제 코드
