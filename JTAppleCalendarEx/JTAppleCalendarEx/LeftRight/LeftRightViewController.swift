@@ -1,5 +1,5 @@
 //
-//  BasicViewController.swift
+//  LeftRightViewController.swift
 //  JTAppleCalendarEx
 //
 //  Created by 김지태 on 1/30/24.
@@ -8,12 +8,14 @@
 import UIKit
 import JTAppleCalendar
 
-class BasicViewController: UIViewController {
-
+class LeftRightViewController: UIViewController {
+    
     @IBOutlet weak var calendarView: JTACMonthView!
     @IBOutlet weak var monthLabel: UILabel!
     
     let df = DateFormatter()
+    
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,7 @@ class BasicViewController: UIViewController {
             self.setupMonthLabel(date: visibleDates.monthDates.first!.date)
         }
         
-        self.calendarView.allowsMultipleSelection = false
+        self.calendarView.allowsMultipleSelection = true
     }
     
     func setupMonthLabel(date: Date) {
@@ -36,12 +38,12 @@ class BasicViewController: UIViewController {
     }
     
     func handleConfiguration(cell: JTACDayCell?, cellState: CellState) {
-        guard let cell = cell as? BasicCellView else { return }
+        guard let cell = cell as? LeftRightCellView else { return }
         self.handleCellColor(cell: cell, cellState: cellState)
         self.handleCellSelection(cell: cell, cellState: cellState)
     }
     
-    func handleCellColor(cell: BasicCellView,
+    func handleCellColor(cell: LeftRightCellView,
                          cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.textColor = .black
@@ -50,7 +52,7 @@ class BasicViewController: UIViewController {
         }
     }
     
-    func handleCellSelection(cell: BasicCellView,
+    func handleCellSelection(cell: LeftRightCellView,
                              cellState: CellState) {
         cell.selectedView.isHidden = !cellState.isSelected
             switch cellState.selectedPosition() {
@@ -69,15 +71,47 @@ class BasicViewController: UIViewController {
             default: break
             }
     }
+    
+    
+    @IBAction func next(_ sender: Any) {
+        self.calendarView.scrollToSegment(.next)
+    }
+    
+    @IBAction func previous(_ sender: Any) {
+        self.calendarView.scrollToSegment(.previous)
+    }
+    
+    @IBAction func startDateButton(_ sender: Any) {
+        self.calendarView.scrollToSegment(.start)
+    }
+    
+    @IBAction func endDateButton(_ sender: Any) {
+        self.calendarView.scrollToSegment(.end)
+    }
+    
 }
 
-extension BasicViewController: JTACMonthViewDelegate, JTACMonthViewDataSource {
+extension LeftRightViewController: JTACMonthViewDelegate, JTACMonthViewDataSource {
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         self.handleConfiguration(cell: cell, cellState: cellState)
     }
     
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "BasicCellView", for: indexPath) as! BasicCellView
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "LeftRightCellView", for: indexPath) as! LeftRightCellView
+
+        // DateComponents를 사용하여 두 날짜의 연, 월, 일 부분을 추출합니다.
+        let components1 = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        let components2 = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+
+        // 두 DateComponents를 비교하여 연, 월, 일 부분이 동일한지 확인합니다.
+        if components1.year == components2.year &&
+           components1.month == components2.month &&
+           components1.day == components2.day {
+            cell.todayView.isHidden = false
+        } else {
+            cell.todayView.isHidden = true
+        }
+        
         cell.dateLabel.text = cellState.text
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
         return cell
@@ -96,11 +130,21 @@ extension BasicViewController: JTACMonthViewDelegate, JTACMonthViewDataSource {
     }
     
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        let df = DateFormatter()
-        df.dateFormat = "yyyy MM dd"
+        // 현재 날짜를 가져옵니다.
+        let startDate = Date()
+        var endDate = Date()
         
-        let startDate = df.date(from: "2017 01 01")!
-        let endDate = df.date(from: "2017 12 31")!
+        // Calendar 인스턴스를 만듭니다.
+        let calendar = Calendar.current
+
+        // 날짜 구성 요소를 만듭니다. 여기서는 3개월을 더하려고 하므로 month 속성을 사용합니다.
+        var dateComponents = DateComponents()
+        dateComponents.month = 3
+
+        // 현재 날짜에 날짜 구성 요소를 추가하여 3개월 후의 날짜를 계산합니다.
+        if let futureDate = calendar.date(byAdding: dateComponents, to: startDate) {
+            endDate = futureDate
+        }
         
         let parameter = ConfigurationParameters(startDate: startDate,
                                                 endDate: endDate,
