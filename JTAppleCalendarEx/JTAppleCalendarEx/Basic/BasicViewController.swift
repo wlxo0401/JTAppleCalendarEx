@@ -25,6 +25,7 @@ class BasicViewController: UIViewController {
             self.setupMonthLabel(date: visibleDates.monthDates.first!.date)
         }
         
+        // 다중 선택 기능
         self.calendarView.allowsMultipleSelection = false
     }
     
