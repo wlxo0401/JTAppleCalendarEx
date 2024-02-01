@@ -27,6 +27,9 @@ class BasicViewController: UIViewController {
         
         // 다중 선택 기능
         self.calendarView.allowsMultipleSelection = false
+        
+        self.calendarView.scrollDirection = .horizontal
+        self.calendarView.reloadData()
     }
     
     func setupMonthLabel(date: Date) {
