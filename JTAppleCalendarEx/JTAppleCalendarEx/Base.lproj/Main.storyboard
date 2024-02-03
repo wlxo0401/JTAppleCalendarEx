@@ -122,14 +122,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LeftRightCellView" id="7Ho-mT-tuP" customClass="LeftRightCellView" customModule="JTAppleCalendarEx" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="15" height="20.333333333333343"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kox-fB-OI5">
-                                            <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333343"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="15" height="20.333333333333343"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azs-uh-f32">
-                                                    <rect key="frame" x="5.6666666666666679" y="-5" width="30.000000000000004" height="30.333333333333332"/>
+                                                    <rect key="frame" x="-7.6666666666666679" y="-5" width="30.333333333333332" height="30.333333333333332"/>
                                                     <color key="backgroundColor" systemColor="systemCyanColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="HfG-jA-sHw"/>
@@ -137,15 +137,15 @@
                                                     </constraints>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMz-th-JXU">
-                                                    <rect key="frame" x="5.6666666666666679" y="-5" width="30.000000000000004" height="30.333333333333332"/>
+                                                    <rect key="frame" x="-7.6666666666666679" y="-5" width="30.333333333333332" height="30.333333333333332"/>
                                                     <color key="backgroundColor" systemColor="systemPinkColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="drO-7c-j4u"/>
                                                         <constraint firstAttribute="height" constant="30" id="p39-wZ-cdJ"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYP-sU-Wk8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYP-sU-Wk8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
